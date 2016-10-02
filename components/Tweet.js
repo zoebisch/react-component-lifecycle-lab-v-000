@@ -3,7 +3,7 @@ const React = require('react');
 class Tweet extends React.Component {
   render() {
     return (
-      <div>{this.props.text}</div>
+      <div className="tweet">{this.props.text}</div>
     )
   }
 }

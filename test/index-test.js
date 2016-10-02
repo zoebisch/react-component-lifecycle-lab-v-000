@@ -27,6 +27,14 @@ describe('App', () => {
     expect(spy.calls.length).toEqual(1);
     App.prototype.cleanUpInterval.restore();
   });
+
+  it('updates the charting library whenever new tweets are received', () => {
+    const spy = expect.spyOn(App.prototype, 'updateChart');
+    const wrapper = shallow(<App />);
+    wrapper.setState({ latestTweets: ['one', 'two', 'three'] });
+    expect(spy.calls.length).toEqual(1);
+    expect(spy).toHaveBeenCalledWith(3);
+  });
 });
 
 describe('TweetWall', () => {
@@ -48,7 +56,7 @@ describe('TweetWall', () => {
     expect(wrapper.state()).toEqual({ tweets: ['I am also a tweet!', 'I am a tweet!'] });
   });
 
-  it('does not re-render when there are no new tweets', () => {
+  it('does not rerender when there are no new tweets', () => {
     const spy = expect.spyOn(TweetWall.prototype, 'render').andCallThrough();
     const wrapper = shallow(<TweetWall newTweets={['I am a tweet!']}  />);
     wrapper.setProps({ newTweets: [] });

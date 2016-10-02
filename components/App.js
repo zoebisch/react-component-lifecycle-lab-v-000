@@ -1,9 +1,8 @@
 const React = require('react');
 const TweetWall = require('./TweetWall');
-const isAfter = require('date-fns/is_after');
-const addSeconds = require('date-fns/add_seconds');
 
-const { getTweets } = require('../data/mockAPI');
+const { getTweets } = require('../lib/mockAPI');
+const { initialize, update } = require('../lib/chart');
 
 class App extends React.Component {
 
@@ -12,6 +11,8 @@ class App extends React.Component {
     this.state = {
       latestTweets: []
     };
+    initialize();
+    this.updateChart = this.updateChart.bind(this);
     this.fetchTweets = this.fetchTweets.bind(this);
   }
 
@@ -20,6 +21,12 @@ class App extends React.Component {
   // TODO: componentDidMount() 
 
   // TODO: componentWillUnmount()
+
+  // TODO: componentDidUpdate()
+  
+  updateChart(numTweets) {
+    update(numTweets);
+  }
 
   startInterval() {
     this.interval = setInterval(this.fetchTweets, 2000);
