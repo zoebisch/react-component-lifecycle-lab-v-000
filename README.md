@@ -15,6 +15,10 @@ Thus, we will be using fake data from a mock API - that is, we will hardcode som
 the data is coming from the real Twitter API. Not to worry, this is a common practice in software engineering,
 especially at the early stages of a project or for testing.
 
+<p align="center">
+  <img src="https://www.rivaliq.com/wp-content/uploads/2015/06/marketing-works-net.png"/>
+</p>
+
 ### See some tweets!
 The `<App />` component is our root component and is responsible for fetching the data and passing it through
 to the Tweet wall and our charting library. As you can see, there is a function `fetchTweets()` which handles
@@ -57,6 +61,10 @@ lifecycle method to call the `updateChart()` function, passing in the _number of
 at the last request.
 
 Voila! We've got our very own live Twitter wall!
+
+<p align="center">
+  <img src="http://i.giphy.com/skmziDEEjiin6.gif"/>
+</p>
 
 ## Resources
 
