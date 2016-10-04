@@ -34,7 +34,7 @@ class TweetWall extends React.Component {
     });
     return (
       <div>{tweets}</div>
-    )
+    );
   }
 }
 
