@@ -40,7 +40,7 @@ doing this in a bit of a roundabout way.
 ### Streaming tweets
 If you've completed the last section, you should now see some tweets in the browser when you load
 the app. Great! However, we'd like out tweet wall to update every few seconds and display us more tweets.
-In order to do that, we have to set up an intercal to call our fake API every few seconds. Open up `<App />`
+In order to do that, we have to set up an interval to call our fake API every few seconds. Open up `<App />`
 again and observe that `startInterval()` and `cleanUpInterval()` already exist. They're just not used.
 Use the `componentDidMount()` and `componentWillUnmount()` lifecycle hooks to start the interval when
 the component is mounted and to clean it up when the component is unmounted.
@@ -76,3 +76,5 @@ Voila! We've got our very own live Twitter wall!
 ## Resources
 
 - [React: Component Specs and Lifecycle](https://facebook.github.io/react/docs/component-specs.html)
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/react-component-lifecycle-lab'>Component Lifecycle Lab</a> on Learn.co and start learning to code for free.</p>
