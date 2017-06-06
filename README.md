@@ -45,7 +45,7 @@ again and observe that `startInterval()` and `cleanUpInterval()` already exist. 
 Use the `componentDidMount()` and `componentWillUnmount()` lifecycle hooks to start the interval when
 the component is mounted and to clean it up when the component is unmounted.
 
-Now, even though you've fetching new tweets using the interval, they are still not being displayed. This
+Now, even though you're fetching new tweets using the interval, they are still not being displayed. This
 is because `newTweets` are being passed down as a prop to `<TweetWall />`, but the `render()` function
 is only reading the tweets from the state. In order to fix this, use the `componentWillReceiveProps()` method
 to update the state to combine `nextProps.newTweets` and `this.state.tweets`. Don't forget that new tweets
