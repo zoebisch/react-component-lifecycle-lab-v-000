@@ -4,6 +4,7 @@ import Tweet from './Tweet';
 export default class TweetWall extends React.Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       tweets: []
     };
@@ -16,9 +17,8 @@ export default class TweetWall extends React.Component {
   // TODO: componentWillReceiveProps()
 
   render() {
-    const tweets = this.state.tweets.map((tweet, index) => {
-      return <Tweet text={tweet.text} key={index} />
-    });
+    const tweets = this.state.tweets.map((tweet, index) => <Tweet text={tweet.text} key={index} />);
+
     return (
       <div>{tweets}</div>
     );

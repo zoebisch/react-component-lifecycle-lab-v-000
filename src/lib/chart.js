@@ -1,6 +1,8 @@
-var chart = null;
+import Highcharts from 'highcharts';
 
-function initialize() {
+let chart = null;
+
+export const initialize = () => {
   if(typeof(Highcharts) === 'undefined') return;
 
   chart = new Highcharts.Chart({
@@ -23,7 +25,7 @@ function initialize() {
   });
 }
 
-function update(numTweets) {
+export const update = (numTweets) => {
   if(typeof(Highcharts) === 'undefined') return;
 
   const shift = chart.series[0].data.length > 10;
@@ -32,7 +34,3 @@ function update(numTweets) {
   }, true, shift);
 }
 
-module.exports = {
-  initialize: () => initialize(),
-  update: (numTweets) => update(numTweets)
-};
