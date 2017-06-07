@@ -1,7 +1,7 @@
 import React from 'react';
 import Tweet from './Tweet';
 
-export default class TweetWall extends React.Component {
+class TweetWall extends React.Component {
   constructor(props) {
     super(props);
     
@@ -11,9 +11,7 @@ export default class TweetWall extends React.Component {
   }
 
   // TODO: componentWillMount()
-
   // TODO: shouldComponentUpdate()
-
   // TODO: componentWillReceiveProps()
 
   render() {
@@ -24,3 +22,5 @@ export default class TweetWall extends React.Component {
     );
   }
 }
+
+export default TweetWall;
