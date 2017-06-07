@@ -1,7 +1,7 @@
 const tweets = require('./data/tweets.json').statuses;
 let numTweetsSent = 0;
 
-function fakeStream() {
+export const getTweets = () => {
   // get num tweets to send (between 0 and 4)
   const numTweets = Math.floor(Math.random() * 4);
 
@@ -13,7 +13,3 @@ function fakeStream() {
 
   return tweets.slice(numTweetsSent - numTweets, numTweetsSent);
 }
-
-module.exports = {
-  getTweets: () => fakeStream()
-};

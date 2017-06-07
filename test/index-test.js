@@ -1,65 +1,67 @@
 import React from 'react';
+import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
+import sinon from 'sinon';
 
-import App from '../components/App';
-import TweetWall from '../components/TweetWall';
+import App from '../src/components/App';
+import TweetWall from '../src/components/TweetWall';
 
 describe('App', () => {
+  const fetchTweetsStub = sinon.stub();
+  const startIntervalStub = sinon.stub();
+  const cleanUpIntervalStub = sinon.stub();
+
+  class AppWrapper extends App {
+    constructor(props) {
+      super(props);
+      this.fetchTweets = fetchTweetsStub;
+      this.startInterval = startIntervalStub;
+      this.cleanUpInterval = cleanUpIntervalStub;
+    } 
+  }
+
   it('will fetch a set of tweets on the initial render', () => {
-    const spy = expect.spyOn(App.prototype, 'fetchTweets');
-    const wrapper = shallow(<App />);
-    expect(spy.calls.length).toEqual(1);
+    fetchTweetsStub.reset();
+    mount(<AppWrapper />)
+    expect(fetchTweetsStub.calledOnce).to.be.true;
   });
 
   it('sets up the interval updating the tweets every few seconds', () => {
-    const spy = expect.spyOn(App.prototype, 'startInterval');
-    const wrapper = mount(<App />);
-    expect(spy).toHaveBeenCalled();
-    expect(spy.calls.length).toEqual(1);
-    App.prototype.startInterval.restore();
+    startIntervalStub.reset();
+    mount(<AppWrapper />)
+    expect(startIntervalStub.calledOnce).to.be.true;
   });
 
   it('cleans up the interval when the component is destroyed', () => {
-    const spy = expect.spyOn(App.prototype, 'cleanUpInterval');
-    const wrapper = mount(<App />);
-    wrapper.unmount();
-    expect(spy).toHaveBeenCalled();
-    expect(spy.calls.length).toEqual(1);
-    App.prototype.cleanUpInterval.restore();
-  });
-
-  it('updates the charting library whenever new tweets are received', () => {
-    const spy = expect.spyOn(App.prototype, 'updateChart');
-    const wrapper = shallow(<App />);
-    wrapper.setState({ latestTweets: ['one', 'two', 'three'] });
-    expect(spy.calls.length).toEqual(1);
-    expect(spy).toHaveBeenCalledWith(3);
+    cleanUpIntervalStub.reset();
+    let wrapper = mount(<AppWrapper />)
+    wrapper.unmount()
+    expect(cleanUpIntervalStub.calledOnce).to.be.true;
   });
 });
 
 describe('TweetWall', () => {
   it('will save the first lot of newTweets into the state at componentWillMount', () => {
     const wrapper = shallow(<TweetWall newTweets={['I am a tweet!']} />);
-    expect(wrapper.state()).toEqual({ tweets: ['I am a tweet!'] });
+    expect(wrapper.state()).to.deep.equal({ tweets: ['I am a tweet!'] });
   });
 
   it('updates the state to incorporate new tweets', () => {
     const wrapper = shallow(<TweetWall newTweets={['I am a tweet!']} />);
     wrapper.setProps({ newTweets: ['I am also a tweet!'] });
-    expect(wrapper.state()).toEqual({ tweets: ['I am also a tweet!', 'I am a tweet!'] });
+    expect(wrapper.state()).to.deep.equal({ tweets: ['I am also a tweet!', 'I am a tweet!'] });
   });
 
   it('updates the state to incorporate new tweets', () => {
-    const spy = expect.spyOn(App.prototype, 'cleanUpInterval');
     const wrapper = shallow(<TweetWall newTweets={['I am a tweet!']} />);
     wrapper.setProps({ newTweets: ['I am also a tweet!'] });
-    expect(wrapper.state()).toEqual({ tweets: ['I am also a tweet!', 'I am a tweet!'] });
+    expect(wrapper.state()).deep.equal({ tweets: ['I am also a tweet!', 'I am a tweet!'] });
   });
 
   it('does not rerender when there are no new tweets', () => {
-    const spy = expect.spyOn(TweetWall.prototype, 'render').andCallThrough();
+    const spy = sinon.spy(TweetWall.prototype, 'render')
     const wrapper = shallow(<TweetWall newTweets={['I am a tweet!']}  />);
     wrapper.setProps({ newTweets: [] });
-    expect(spy.calls.length).toEqual(1);
+    expect(spy).to.have.property('callCount', 1)
   });
 });
